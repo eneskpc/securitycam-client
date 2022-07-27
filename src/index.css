@@ -1,13 +1,94 @@
+* {
+  box-sizing: border-box;
+}
 body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  font-family: sans-serif;
+}
+button {
+  transition: 0.3s all;
+  cursor: pointer;
+}
+button:active {
+  transform: scale(0.85);
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.locale {
+  position: relative;
+  margin-bottom: 0.6rem;
+}
+
+.locale > button {
+  background-color: transparent;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+.locale > .all-languages {
+  position: absolute;
+  right: 0;
+  top: 100%;
+  min-width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #fff;
+}
+
+.locale > .all-languages > button {
+  width: 100%;
+  background-color: transparent;
+  border: none;
+  transition: 0.3s all;
+  border-bottom: 1px solid #ccc;
+  padding: 0.5rem;
+}
+
+.locale > .all-languages > button:last-of-type {
+  border-bottom: none;
+}
+
+.locale > .all-languages > button:hover {
+  background-color: rgba(0, 50, 100, 0.25);
+}
+
+.locale > .all-languages > button:active {
+  background-color: rgba(0, 50, 100, 0.5);
+}
+
+.tabs {
+  white-space: nowrap;
+}
+
+.tabs > button {
+  border-top-right-radius: 0.6rem;
+  border-top-left-radius: 0.6rem;
+  padding: 0.6rem;
+  border: 1px solid #ccc;
+  border-bottom-color: transparent;
+  background-color: transparent;
+  white-space: no-wrap;
+}
+
+.tabs > button.active {
+  background-color: cadetblue;
+  border: 1px solid cadetblue !important;
+  color: #fff;
+  border: none;
+}
+
+.tab-contents {
+  border: 1px solid cadetblue;
+  border-top-right-radius: 0.6rem;
+  border-bottom-left-radius: 0.6rem;
+  border-bottom-right-radius: 0.6rem;
+  min-height: 350px;
+  width: 100%;
+  max-width: 900px;
+}
+
+.tab-contents > .content {
+  padding: 0.8rem;
+}
+
+.camera-status {
+  padding-bottom: 0.6rem;
+  text-align: center;
 }
