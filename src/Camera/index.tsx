@@ -12,7 +12,9 @@ type Props = {};
 const CameraPage = (props: Props) => {
   const dispatch = useDispatch();
   const [lastImage, setLastImage] = useState<string>(BeforeBroadcast);
-  const { lastMessage, readyState } = useWebSocket(config.webServerUrl);
+  const { lastMessage, readyState } = useWebSocket(config.webServerUrl, {
+    shouldReconnect: (closeEvent) => true,
+  });
 
   const locale = useSelector((s: RootState) => s.locale.languageResources);
 
