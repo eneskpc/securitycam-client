@@ -10,19 +10,12 @@ import { RootState } from "../store";
 type Props = {};
 
 const CameraPage = (props: Props) => {
+  const locale = useSelector((s: RootState) => s.locale.languageResources);
   const dispatch = useDispatch();
   const [lastImage, setLastImage] = useState<string>(BeforeBroadcast);
   const { lastMessage, readyState } = useWebSocket(config.webServerUrl, {
-    shouldReconnect: (closeEvent) => true,
+    shouldReconnect: (event) => true,
   });
-
-  const locale = useSelector((s: RootState) => s.locale.languageResources);
-
-  useEffect(() => {
-    if (lastMessage !== null) {
-      setLastImage(lastMessage.data as string);
-    }
-  }, [lastMessage, setLastImage]);
 
   const connectionStatus = {
     [ReadyState.CONNECTING]: locale.CONNECTING,
@@ -32,16 +25,25 @@ const CameraPage = (props: Props) => {
     [ReadyState.UNINSTANTIATED]: locale.UNINSTANTIATED,
   }[readyState];
 
-  dispatch(
-    change(
-      locale.WEBSOCKET_IS_CURRENTLY.replace(
-        "{{connectionStatus}}",
-        connectionStatus
-      )
-    )
-  );
+  useEffect(() => {
+    if (lastMessage !== null) {
+      var resp = JSON.parse(lastMessage.data);
+      setLastImage(resp.message);
+    }
+  }, [lastMessage, setLastImage]);
 
-  return <img src={lastImage} alt={locale.CAMERA} width={"100%"} />;
+  useEffect(() => {
+    dispatch(
+      change(
+        locale.WEBSOCKET_IS_CURRENTLY.replace(
+          "{{connectionStatus}}",
+          connectionStatus
+        )
+      )
+    );
+  }, [connectionStatus]);
+
+  return <img src={`data:image/jpeg;base64,${lastImage}`} alt={locale.CAMERA} width={"100%"} />;
 };
 
 export default CameraPage;
